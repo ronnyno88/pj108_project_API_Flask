@@ -1,20 +1,20 @@
-from ..models import courses_models
+from ..models import course_model
 from api import db
 
 #methods for manipulate DB
 def create_course(course):
-    course_db = courses_models.Course(name_course=course.name_course, desc_course=course.desc_course,
+    course_db = course_model.CourseModel(name_course=course.name_course, desc_course=course.desc_course,
                                       publish_course=course.publish_course)
     db.session.add(course_db)
     db.session.commit()
     return course_db
 
 def list_courses():
-    courses = courses_models.Course.query.all()
+    courses = course_model.CourseModel.query.all()
     return courses
 
 def list_course(id_course):
-    course = courses_models.Course.query.filter_by(id_course=id_course).first()
+    course = course_model.CourseModel.query.filter_by(id_course=id_course).first()
     return course
 
 def update_course(previous_course, new_course):

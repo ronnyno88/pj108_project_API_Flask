@@ -21,5 +21,5 @@ migrate = Migrate(app, db)
 api = Api(app)
 
 # importing the modules
-from .views import courses_views
-from .models import courses_models
+from .views import course_view, discipline_view
+from .models import course_model, discipline_model

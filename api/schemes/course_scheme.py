@@ -1,11 +1,11 @@
 from api import ma
-from ..models import courses_models
+from ..models import course_model
 from marshmallow import fields
 
 #class defined to validate the fields of API
 class CourseScheme(ma.SQLAlchemyAutoSchema):
     class Meta:
-        model = courses_models.Course
+        model = course_model.CourseModel
         load_instance = True
         fields = ("id_course", "name_course", "desc_course", "publish_course")
 

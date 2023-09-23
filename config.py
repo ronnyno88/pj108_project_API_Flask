@@ -2,7 +2,7 @@
 # starting debug
 DEBUG = True
 
-#configs used for connecting database
+# configs used for connecting database
 USERNAME = "root"
 PASSWORD = "1234"
 SERVER = "localhost"
