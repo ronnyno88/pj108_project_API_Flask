@@ -8,9 +8,9 @@ from ..services import discipline_service
 #classes that response e request datas with methods HTTP
 class DisciplineNoParameter(Resource):
     def get(self):
-        new_discipline = discipline_service.list_disciplines()
+        disciplines = discipline_service.list_disciplines()
         discipline_sch = discipline_scheme.DisciplineScheme(many=True)
-        return make_response(discipline_sch.jsonify(new_discipline), 200)
+        return make_response(discipline_sch.jsonify(disciplines), 200)
 
     def post(self):
         discipline_sch = discipline_scheme.DisciplineScheme()
@@ -31,14 +31,14 @@ class DisciplineWithParameter(Resource):
 
     def get(self, id_discipline):
         new_discipline = discipline_service.list_discipline(id_discipline)
-        if id_discipline is None:
+        if new_discipline is None:
             return make_response(jsonify("Not found"), 404)
         discipline_sch = discipline_scheme.DisciplineScheme()
         return make_response(discipline_sch.jsonify(new_discipline), 200)
 
     def put(self, id_discipline):
-        new_discipline = discipline_service.list_discipline(id_discipline)
-        if id_discipline is None:
+        db_discipline = discipline_service.list_discipline(id_discipline)
+        if db_discipline is None:
             return make_response(jsonify("Not found"), 404)
         discipline_sch = discipline_scheme.DisciplineScheme()
         validate = discipline_sch.validate(request.json)
@@ -55,12 +55,12 @@ class DisciplineWithParameter(Resource):
             return make_response(result, 201)
 
     def delete(self, id_discipline):
-        new_discipline = discipline_service.list_discipline(id_discipline)
-        if id_discipline is None:
+        db_discipline = discipline_service.list_discipline(id_discipline)
+        if db_discipline is None:
             return make_response(jsonify("Not found"), 404)
-        discipline_service.delete_discipline(new_discipline)
+        discipline_service.delete_discipline(db_discipline)
         return make_response(jsonify("Deleted Successful"), 200)
 
 
-api.add_resource(DisciplineNoParameter, '/discipline')
+api.add_resource(DisciplineNoParameter, '/disciplines')
 api.add_resource(DisciplineWithParameter, '/discipline/<int:id_discipline>')

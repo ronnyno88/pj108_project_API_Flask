@@ -1,6 +1,8 @@
 #this classe is a entity used in methodos of services in API
+#describe classes of business model of API
 class Discipline:
-    def __init__(self, name_discipline, desc_discipline, ):
+    #not necessary get id because will be automatic inserted
+    def __init__(self, name_discipline, desc_discipline):
         self.__name_discipline = name_discipline
         self.__desc_discipline = desc_discipline
 

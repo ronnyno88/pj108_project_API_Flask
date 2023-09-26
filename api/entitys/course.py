@@ -1,9 +1,11 @@
 #this classe is a entity used in methodos of services in API
+
 class Course:
-    def __init__(self, name_course, desc_course, publish_course):
+    def __init__(self, name_course, desc_course, publish_course, discipline):
         self.__name_course = name_course
         self.__desc_course = desc_course
         self.__publish_course = publish_course
+        self.__discipline = discipline
 
     #this methodos are getters e setters, retuns and modify the parameters
     @property
@@ -29,3 +31,11 @@ class Course:
     @publish_course.setter
     def publish_course(self, publish_course):
         self.__publish_course = publish_course
+
+    @property
+    def discipline(self):
+        return self.__discipline
+
+    @discipline.setter
+    def discipline(self, discipline):
+        self.__discipline = discipline
