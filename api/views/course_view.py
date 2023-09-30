@@ -18,6 +18,7 @@ class CourseNoParameter(Resource):
         if validate:
             return make_response(jsonify(validate), 400)
         else:
+            #recovery informations
             name_course = request.json["name_course"]
             desc_course = request.json["desc_course"]
             publish_course = request.json["publish_course"]
@@ -61,7 +62,7 @@ class CourseWithParameter(Resource):
 
             new_course = course.Course(name_course=name_course, desc_course=desc_course, publish_course=publish_course,
                                        discipline=discipline_course)
-            course_service.update_course(course, new_course)
+            course_service.update_course(db_course, new_course)
             csv_result = course_service.list_course(id_course)
             return make_response(course_sch.jsonify(csv_result), 200)
 

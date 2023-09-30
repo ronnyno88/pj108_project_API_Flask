@@ -8,6 +8,7 @@ class Course(db.Model):
     name_course = db.Column(db.String(50), nullable=False)
     desc_course = db.Column(db.String(100), nullable=False)
     publish_course = db.Column(db.Date, nullable=False)
+    #field that identifies the foreignkey of the disciplines table reference
     discipline_id = db.Column(db.Integer, db.ForeignKey("discipline.id_discipline"))
-
-    discipline = db.relationship("Discipline", backref="course")
+    #determine the reference for relationship many_to_one(curses-discipline)
+    discipline = db.relationship(discipline_model.Discipline, backref=db.backref("courses", lazy="dynamic"))

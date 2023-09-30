@@ -20,8 +20,9 @@ class DisciplineNoParameter(Resource):
         else:
             name_discipline = request.json["name_discipline"]
             desc_discipline = request.json["desc_discipline"]
+            teachers = request.json["teachers"]
 
-            new_discipline = discipline.Discipline(name_discipline=name_discipline, desc_discipline=desc_discipline)
+            new_discipline = discipline.Discipline(name_discipline=name_discipline, desc_discipline=desc_discipline, teachers=teachers)
             csv_result = discipline_service.create_discipline(new_discipline)
             result = discipline_sch.jsonify(csv_result)
             return make_response(result, 201)
@@ -47,9 +48,10 @@ class DisciplineWithParameter(Resource):
         else:
             name_discipline = request.json["name_discipline"]
             desc_discipline = request.json["desc_discipline"]
+            teachers = request.json["teachers"]
 
-            new_discipline = discipline.Discipline(name_discipline=name_discipline, desc_discipline=desc_discipline)
-            discipline_service.update_discipline(discipline, new_discipline)
+            new_discipline = discipline.Discipline(name_discipline=name_discipline, desc_discipline=desc_discipline, teachers=teachers)
+            discipline_service.update_discipline(db_discipline, new_discipline)
             csv_result = discipline_service.list_discipline(id_discipline)
             result = discipline_sch.jsonify(csv_result)
             return make_response(result, 201)

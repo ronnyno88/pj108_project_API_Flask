@@ -4,8 +4,11 @@ from api import db
 
 # methods for manipulate DB
 def create_course(course):
-    course_db = course_model.Course(name_course=course.name_course, desc_course=course.desc_course,
-                                         publish_course=course.publish_course, discipline=course.discipline)
+    course_db = course_model.Course(name_course=course.name_course,
+                                    desc_course=course.desc_course,
+                                    publish_course=course.publish_course,
+                                    discipline=course.discipline)
+
     db.session.add(course_db)
     db.session.commit()
     return course_db

@@ -1,7 +1,12 @@
 from api import db
-
+from .teacher_model import Teacher
 # modeling the class used in methods of API
 # this model contains the base for create the database
+
+teacher_discipline = db.Table('teacher_discipline',
+    db.Column('teacher_id', db.Integer, db.ForeignKey('teacher.id_teacher'), primary_key=True, nullable=False),
+    db.Column('discipline_id', db.Integer, db.ForeignKey('discipline.id_discipline'), primary_key=True, nullable=False)
+)
 
 class Discipline(db.Model):
     #mappeding the name of table
@@ -11,4 +16,4 @@ class Discipline(db.Model):
     desc_discipline = db.Column(db.String(100), nullable=False)
 
     #describe type of relation beetheen tables
-    courses = db.relationship("Course", back_populates='discipline')
+    teachers = db.relationship(Teacher, secondary='teacher_discipline', back_populates='disciplines')

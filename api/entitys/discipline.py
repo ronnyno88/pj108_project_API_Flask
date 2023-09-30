@@ -2,9 +2,10 @@
 #describe classes of business model of API
 class Discipline:
     #not necessary get id because will be automatic inserted
-    def __init__(self, name_discipline, desc_discipline):
+    def __init__(self, name_discipline, desc_discipline, teachers):
         self.__name_discipline = name_discipline
         self.__desc_discipline = desc_discipline
+        self.__teachers = teachers
 
     #this methodos are getters e setters, retuns and modify the parameters
     @property
@@ -22,3 +23,11 @@ class Discipline:
     @desc_discipline.setter
     def desc_discipline(self, desc_discipline):
         self.__desc_discipline = desc_discipline
+
+    @property
+    def teachers(self):
+        return self.__teachers
+
+    @teachers.setter
+    def teachers(self, teachers):
+        self.__teachers = teachers
