@@ -3,7 +3,7 @@ from ..models import course_model
 from marshmallow import fields
 
 #class defined to validate the fields of API
-class CourseScheme(ma.SQLAlchemyAutoSchema):
+class CourseSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = course_model.Course
         load_instance = True
@@ -14,4 +14,3 @@ class CourseScheme(ma.SQLAlchemyAutoSchema):
     desc_course = fields.String(required=True)
     publish_course = fields.Date(required=True)
     discipline = fields.String(required=True)
-
