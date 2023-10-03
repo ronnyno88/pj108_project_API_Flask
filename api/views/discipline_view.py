@@ -4,13 +4,14 @@ from flask import request, jsonify, make_response
 from ..entitys import discipline
 from ..schemes import discipline_scheme
 from ..services import discipline_service
+from ..paginate import paginate
+from ..models.discipline_model import Discipline
 
 #classes that response e request datas with methods HTTP
 class DisciplineNoParameter(Resource):
     def get(self):
-        disciplines = discipline_service.list_disciplines()
         discipline_sch = discipline_scheme.DisciplineScheme(many=True)
-        return make_response(discipline_sch.jsonify(disciplines), 200)
+        return paginate(Discipline, discipline_sch)
 
     def post(self):
         discipline_sch = discipline_scheme.DisciplineScheme()

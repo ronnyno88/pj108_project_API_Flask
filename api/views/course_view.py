@@ -4,13 +4,13 @@ from flask import request, jsonify, make_response
 from ..entitys import course
 from ..schemes import course_scheme
 from ..services import course_service, discipline_service
-
+from ..paginate import paginate
+from ..models.course_model import Course
 #classes that response e request datas with methods HTTP
 class CourseNoParameter(Resource):
     def get(self):
-        courses = course_service.list_courses()
         course_sch = course_scheme.CourseScheme(many=True)
-        return make_response(course_sch.jsonify(courses), 200)
+        return paginate(Course, course_sch)
 
     def post(self):
         course_sch = course_scheme.CourseScheme()

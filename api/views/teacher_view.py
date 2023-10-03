@@ -4,13 +4,14 @@ from flask import request, jsonify, make_response
 from ..entitys import teacher
 from ..schemes import teacher_scheme
 from ..services import teacher_service
+from ..paginate import paginate
+from ..models.teacher_model import Teacher
 
 #classes that response e request datas with methods HTTP
 class TeacherNoParameter(Resource):
     def get(self):
-        teachers = teacher_service.list_teachers()
         teacher_sch = teacher_scheme.TeacherScheme(many=True)
-        return make_response(teacher_sch.jsonify(teachers), 200)
+        return paginate(Teacher, teacher_sch)
 
     def post(self):
         teacher_sch = teacher_scheme.TeacherScheme()
