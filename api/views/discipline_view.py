@@ -6,13 +6,16 @@ from ..schemas import discipline_schema
 from ..services import discipline_service
 from ..paginate import paginate
 from ..models.discipline_model import Discipline
+from flask_jwt_extended import jwt_required
 
 #classes that response e request datas with methods HTTP
-class DisciplineNoParameter(Resource):
+class Disciplines(Resource):
+    @jwt_required()
     def get(self):
         discipline_sch = discipline_schema.DisciplineSchema(many=True)
         return paginate(Discipline, discipline_sch)
 
+    @jwt_required()
     def post(self):
         discipline_sch = discipline_schema.DisciplineSchema()
         validate = discipline_sch.validate(request.json)
@@ -29,15 +32,15 @@ class DisciplineNoParameter(Resource):
             return make_response(result, 201)
 
 
-class DisciplineWithParameter(Resource):
-
+class DisciplineResource(Resource):
+    @jwt_required()
     def get(self, id_discipline):
         new_discipline = discipline_service.list_discipline(id_discipline)
         if new_discipline is None:
             return make_response(jsonify("Not found"), 404)
         discipline_sch = discipline_schema.DisciplineSchema()
         return make_response(discipline_sch.jsonify(new_discipline), 200)
-
+    @jwt_required()
     def put(self, id_discipline):
         db_discipline = discipline_service.list_discipline(id_discipline)
         if db_discipline is None:
@@ -56,7 +59,7 @@ class DisciplineWithParameter(Resource):
             csv_result = discipline_service.list_discipline(id_discipline)
             result = discipline_sch.jsonify(csv_result)
             return make_response(result, 201)
-
+    @jwt_required()
     def delete(self, id_discipline):
         db_discipline = discipline_service.list_discipline(id_discipline)
         if db_discipline is None:
@@ -65,5 +68,5 @@ class DisciplineWithParameter(Resource):
         return make_response(jsonify("Deleted Successful"), 200)
 
 
-api.add_resource(DisciplineNoParameter, '/disciplines')
-api.add_resource(DisciplineWithParameter, '/discipline/<int:id_discipline>')
+api.add_resource(Disciplines, '/disciplines')
+api.add_resource(DisciplineResource, '/discipline/<int:id_discipline>')
