@@ -6,12 +6,16 @@ from ..schemas import course_schema
 from ..services import course_service, discipline_service
 from ..paginate import paginate
 from ..models.course_model import Course
+from flask_jwt_extended import jwt_required
+
 #classes that response e request datas with methods HTTP
-class CourseNoParameter(Resource):
+class Courses(Resource):
+    @jwt_required()
     def get(self):
         course_sch = course_schema.CourseSchema(many=True)
         return paginate(Course, course_sch)
 
+    @jwt_required()
     def post(self):
         course_sch = course_schema.CourseSchema()
         validate = course_sch.validate(request.json)
@@ -33,7 +37,8 @@ class CourseNoParameter(Resource):
             return make_response(course_sch.jsonify(csv_result), 201)
 
 
-class CourseWithParameter(Resource):
+class CourseResource(Resource):
+    @jwt_required()
     def get(self, id_course):
         new_course = course_service.list_course(id_course)
         if new_course is None:
@@ -41,6 +46,7 @@ class CourseWithParameter(Resource):
         course_sch = course_schema.CourseSchema()
         return make_response(course_sch.jsonify(new_course), 200)
 
+    @jwt_required()
     def put(self, id_course):
         db_course = course_service.list_course(id_course)
         if db_course is None:
@@ -66,6 +72,7 @@ class CourseWithParameter(Resource):
             csv_result = course_service.list_course(id_course)
             return make_response(course_sch.jsonify(csv_result), 200)
 
+    @jwt_required()
     def delete(self, id_course):
         db_course = course_service.list_course(id_course)
         if db_course is None:
@@ -74,5 +81,5 @@ class CourseWithParameter(Resource):
         return make_response(jsonify("Deleted Successful"), 200)
 
 
-api.add_resource(CourseNoParameter, '/courses')
-api.add_resource(CourseWithParameter, '/course/<int:id_course>')
+api.add_resource(Courses, '/courses')
+api.add_resource(CourseResource, '/course/<int:id_course>')
