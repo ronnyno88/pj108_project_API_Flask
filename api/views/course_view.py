@@ -7,11 +7,11 @@ from ..services import course_service, discipline_service
 from ..paginate import paginate
 from ..models.course_model import Course
 from flask_jwt_extended import jwt_required, get_jwt
-from ..decorator import adm_required
+from ..decorator import adm_required, api_key_required
 
 #classes that response e request datas with methods HTTP
 class Courses(Resource):
-    @jwt_required()
+    @api_key_required
     def get(self):
         course_sch = course_schema.CourseSchema(many=True)
         return paginate(Course, course_sch)

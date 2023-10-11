@@ -7,10 +7,11 @@ class UserSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = teacher_model.Teacher
         load_instance = True
-        fields = ("id", "login", "email", "password", "is_adm")
+        fields = ("id", "login", "email", "password", "is_adm", "api_key")
 
     #all fiels indicates below should be requerid
     login = fields.String(required=True)
     email = fields.String(required=True)
     password = fields.String(required=True)
     is_adm = fields.Boolean(required=True)
+    api_key = fields.String(required=False)
