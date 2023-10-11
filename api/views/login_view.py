@@ -1,5 +1,5 @@
 from flask_restful import Resource
-from api import api
+from api import api, jwt
 from flask import request, jsonify, make_response
 from ..schemas import login_schema
 from ..services import user_service
@@ -8,6 +8,14 @@ from datetime import timedelta
 
 # classes that response e request datas with methods HTTP
 class LoginList(Resource):
+    @jwt.additional_claims_loader#verificação de papeis(clains) do usuário(is_adm)
+    def add_clains_to_access_token(identity):#verifica clains do usuario
+        user_token = user_service.list_user_id(identity)
+        if user_token.is_adm:
+            roles = "adm"
+        else:
+            roles = "user"
+        return {"roles":roles}
     def post(self):
         login_sch = login_schema.LoginSchema()
         validate = login_sch.validate(request.json)

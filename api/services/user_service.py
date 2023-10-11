@@ -12,3 +12,6 @@ def create_user(user):
 
 def list_user(email):
     return user_model.User.query.filter_by(email=email).first()
+
+def list_user_id(id):
+    return user_model.User.query.filter_by(id=id).first()
