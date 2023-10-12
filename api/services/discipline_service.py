@@ -4,10 +4,8 @@ from ..entitys import teacher
 from ..models import discipline_model, teacher_model
 from .teacher_service import list_teacher
 from api import db
-
-#methods for manipulate DB
 def create_discipline(discipline):
-    discipline_db = discipline_model.Discipline(name_discipline=discipline.name_discipline, desc_discipline=discipline.desc_discipline)
+    discipline_db = discipline_model.Discipline(description=discipline.description)
     for i in discipline.teachers:
         teacher = list_teacher(i)
         discipline_db.teachers.append(teacher)
@@ -25,7 +23,7 @@ def list_discipline(id_discipline):
 
 def update_discipline(previous_discipline, new_discipline):
     previous_discipline.name_discipline = new_discipline.name_discipline
-    previous_discipline.desc_discipline = new_discipline.desc_discipline
+    previous_discipline.description = new_discipline.description
     for i in new_discipline.teachers:
         teacher = list_teacher(i)
         previous_discipline.teachers.append(teacher)

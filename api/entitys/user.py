@@ -1,5 +1,3 @@
-#this classe is a entity used in methodos of services in API
-
 class User:
     def __init__(self, login, email, password, is_adm, api_key):
         self.__login = login
@@ -8,7 +6,6 @@ class User:
         self.is_adm = is_adm
         self.api_key = api_key
 
-    #this methodos are getters e setters, retuns and modify the parameters
     @property
     def login(self):
         return self.__login

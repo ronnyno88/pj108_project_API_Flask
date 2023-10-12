@@ -5,8 +5,6 @@ from ..entitys import user
 from ..schemas import user_schema
 from ..services import user_service
 import uuid
-
-#classes that response e request datas with methods HTTP
 class UserList(Resource):
     def post(self):
         user_sch = user_schema.UserSchema()

@@ -3,9 +3,6 @@ from flask_restful import Resource
 from api import api
 from flask_jwt_extended import create_access_token, create_refresh_token, jwt_required, get_jwt_identity
 from flask import request, make_response, jsonify
-
-
-# classes that response e request datas with methods HTTP
 class RefreshTokenList(Resource):
     @jwt_required(refresh=True)
     def post(self):

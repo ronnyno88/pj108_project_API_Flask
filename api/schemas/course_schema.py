@@ -7,10 +7,8 @@ class CourseSchema(ma.SQLAlchemyAutoSchema):
     class Meta:
         model = course_model.Course
         load_instance = True
-        fields = ("id_course", "name_course", "desc_course", "publish_course", "discipline")
+        fields = ("id_course", "name", "workload", "discipline")
 
-    #all fiels indicates below should be requerid
-    name_course = fields.String(required=True)
-    desc_course = fields.String(required=True)
-    publish_course = fields.Date(required=True)
+    name = fields.String(required=True)
+    workload = fields.Float(required=True)
     discipline = fields.String(required=True)

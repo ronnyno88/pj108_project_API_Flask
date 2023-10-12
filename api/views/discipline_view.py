@@ -7,8 +7,6 @@ from ..services import discipline_service
 from ..paginate import paginate
 from ..models.discipline_model import Discipline
 from flask_jwt_extended import jwt_required
-
-#classes that response e request datas with methods HTTP
 class Disciplines(Resource):
     @jwt_required()
     def get(self):
@@ -22,11 +20,10 @@ class Disciplines(Resource):
         if validate:
             return make_response(jsonify(validate), 404)
         else:
-            name_discipline = request.json["name_discipline"]
-            desc_discipline = request.json["desc_discipline"]
+            description = request.json["description"]
             teachers = request.json["teachers"]
 
-            new_discipline = discipline.Discipline(name_discipline=name_discipline, desc_discipline=desc_discipline, teachers=teachers)
+            new_discipline = discipline.Discipline(description=description, teachers=teachers)
             csv_result = discipline_service.create_discipline(new_discipline)
             result = discipline_sch.jsonify(csv_result)
             return make_response(result, 201)
@@ -50,11 +47,10 @@ class DisciplineResource(Resource):
         if validate:
             return make_response(jsonify(validate), 404)
         else:
-            name_discipline = request.json["name_discipline"]
-            desc_discipline = request.json["desc_discipline"]
+            description = request.json["description"]
             teachers = request.json["teachers"]
 
-            new_discipline = discipline.Discipline(name_discipline=name_discipline, desc_discipline=desc_discipline, teachers=teachers)
+            new_discipline = discipline.Discipline(description=description, teachers=teachers)
             discipline_service.update_discipline(db_discipline, new_discipline)
             csv_result = discipline_service.list_discipline(id_discipline)
             result = discipline_sch.jsonify(csv_result)

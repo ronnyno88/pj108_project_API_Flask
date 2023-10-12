@@ -6,10 +6,7 @@ from ..schemas import course_schema
 from ..services import course_service, discipline_service
 from ..paginate import paginate
 from ..models.course_model import Course
-from flask_jwt_extended import jwt_required, get_jwt
 from ..decorator import adm_required, api_key_required
-
-#classes that response e request datas with methods HTTP
 class Courses(Resource):
     @api_key_required
     def get(self):
@@ -25,16 +22,15 @@ class Courses(Resource):
             return make_response(jsonify(validate), 400)
         else:
             #recovery informations
-            name_course = request.json["name_course"]
-            desc_course = request.json["desc_course"]
-            publish_course = request.json["publish_course"]
+            name = request.json["name"]
+            workload = request.json["workload"]
             discipline = request.json["discipline"]
             discipline_course = discipline_service.list_discipline(discipline)
 
             if discipline_course is None:
                 return make_response(jsonify("discipline not found"), 404)
 
-            new_course = course.Course(name_course=name_course, desc_course=desc_course, publish_course=publish_course, discipline=discipline_course)
+            new_course = course.Course(name=name, workload=workload, discipline=discipline_course)
             csv_result = course_service.create_course(new_course)
             return make_response(course_sch.jsonify(csv_result), 201)
 
@@ -58,9 +54,8 @@ class CourseResource(Resource):
         if validate:
             return make_response(jsonify(validate), 404)
         else:
-            name_course = request.json["name_course"]
-            desc_course = request.json["desc_course"]
-            publish_course = request.json["publish_course"]
+            name = request.json["name"]
+            workload = request.json["workload"]
 
             discipline = request.json["discipline"]
             discipline_course = discipline_service.list_discipline(discipline)
@@ -68,7 +63,7 @@ class CourseResource(Resource):
             if discipline_course is None:
                 return make_response(jsonify("discipline not found"), 404)
 
-            new_course = course.Course(name_course=name_course, desc_course=desc_course, publish_course=publish_course,
+            new_course = course.Course(name=name, workload=workload,
                                        discipline=discipline_course)
             course_service.update_course(db_course, new_course)
             csv_result = course_service.list_course(id_course)

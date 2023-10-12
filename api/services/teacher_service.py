@@ -1,7 +1,5 @@
 from ..models import teacher_model
 from api import db
-
-#methods for manipulate DB
 def create_teacher(teacher):
     teacher_db = teacher_model.Teacher(name_teacher=teacher.name_teacher, age_teacher=teacher.age_teacher)
     db.session.add(teacher_db)

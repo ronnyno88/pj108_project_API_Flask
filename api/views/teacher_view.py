@@ -7,8 +7,6 @@ from ..services import teacher_service
 from ..paginate import paginate
 from ..models.teacher_model import Teacher
 from flask_jwt_extended import jwt_required
-
-#classes that response e request datas with methods HTTP
 class Teachers(Resource):
     @jwt_required()
     def get(self):
@@ -21,10 +19,10 @@ class Teachers(Resource):
         if validate:
             return make_response(jsonify(validate), 404)
         else:
-            name_teacher = request.json["name_teacher"]
-            age_teacher = request.json["age_teacher"]
+            name = request.json["name"]
+            graduate_level = request.json["graduate_level"]
 
-            new_teacher = teacher.Teacher(name_teacher=name_teacher, age_teacher=age_teacher)
+            new_teacher = teacher.Teacher(name=name, graduate_level=graduate_level)
             csv_result = teacher_service.create_teacher(new_teacher)
             result = teacher_sch.jsonify(csv_result)
             return make_response(result, 201)
@@ -48,10 +46,10 @@ class TeacherResouces(Resource):
         if validate:
             return make_response(jsonify(validate), 404)
         else:
-            name_teacher = request.json["name_teacher"]
-            age_teacher = request.json["age_teacher"]
+            name = request.json["name"]
+            graduate_level = request.json["graduate_level"]
 
-            new_teacher = teacher.Teacher(name_teacher=name_teacher, age_teacher=age_teacher)
+            new_teacher = teacher.Teacher(name=name, graduate_level=graduate_level)
             teacher_service.update_teacher(teacher, new_teacher)
             csv_result = teacher_service.list_teacher(id_teacher)
             result = teacher_sch.jsonify(csv_result)

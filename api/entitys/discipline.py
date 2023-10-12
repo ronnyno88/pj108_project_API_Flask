@@ -1,28 +1,15 @@
-#this classe is a entity used in methodos of services in API
-#describe classes of business model of API
 class Discipline:
-    #not necessary get id because will be automatic inserted
-    def __init__(self, name_discipline, desc_discipline, teachers):
-        self.__name_discipline = name_discipline
-        self.__desc_discipline = desc_discipline
+    def __init__(self, description, teachers):
+        self.__description = description
         self.__teachers = teachers
 
-    #this methodos are getters e setters, retuns and modify the parameters
     @property
-    def name_discipline(self):
-        return self.__name_discipline
+    def description(self):
+        return self.__description
 
-    @name_discipline.setter
-    def name_discipline(self, name_discipline):
-        self.__name_discipline = name_discipline
-
-    @property
-    def desc_discipline(self):
-        return self.__desc_discipline
-
-    @desc_discipline.setter
-    def desc_discipline(self, desc_discipline):
-        self.__desc_discipline = desc_discipline
+    @description.setter
+    def description(self, description):
+        self.__description = description
 
     @property
     def teachers(self):

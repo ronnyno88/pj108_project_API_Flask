@@ -1,7 +1,4 @@
 from flask import request, url_for
-
-
-
 def paginate(model, schema):
     page = int(request.args.get('page', 1))
     per_page = int(request.args.get('per_page', 3))
